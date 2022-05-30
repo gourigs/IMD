@@ -1,6 +1,6 @@
 import os
 from MantraNet.mantranet import pre_trained_model, check_forgery
-from BusterNet.BusterNetCore import create_BusterNet_testing_model, simple_cmfd_decoder, visualize_result
+#from BusterNet.BusterNetCore import create_BusterNet_testing_model, simple_cmfd_decoder, visualize_result
 import streamlit as st
 import cv2
 
@@ -16,12 +16,6 @@ def check_image(img_path):
     )
     fig = check_forgery(MantraNetmodel, img_path=img_path, device=device)
 
-    busterNetModel = create_BusterNet_testing_model( 'BusterNet/pretrained_busterNet.hd5' )
-
-    rgb = cv2.imread(img_path)
-    pred = simple_cmfd_decoder( busterNetModel, rgb )
-    figure = visualize_result( rgb, pred, pred, figsize=(20,20), title='BusterNet CMFD')
-    return fig, figure
 
 
 uploaded_image = st.file_uploader("Upload your image", type=["jpg", "png"])
@@ -31,5 +25,4 @@ if uploaded_image is not None:
     fig, figure  = check_image(os.path.join("images", uploaded_image.name))
     st.write("ManTraNet")
     st.pyplot(fig)
-    st.write("BusterNet")
-    st.pyplot(figure)
+   
